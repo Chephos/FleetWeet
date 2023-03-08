@@ -21,8 +21,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('api.urls')),
-    path('api-auth/', include('rest_framework.urls')),
-    path('dj-rest-auth/', include('dj_rest_auth.urls'))
+    path('api/v1/api-auth/', include('rest_framework.urls')),
+    path('api/v1/auth/', include('dj_rest_auth.urls')),
+    path('api/v1/registration/', include('dj_rest_auth.registration.urls'))
 ]
 
 if settings.DEBUG:

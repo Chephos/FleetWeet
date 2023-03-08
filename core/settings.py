@@ -37,11 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'tweets.apps.TweetsConfig',
     'accounts.apps.AccountsConfig',
 
     'rest_framework',
+    'rest_framework.authtoken',
+    # 'rest_framework_simplejwt',
+    
     'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -135,4 +143,30 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
     'rest_framework.permissions.IsAuthenticated'
     ],
+    'DEFAUT_AUTHENTICATION_CLASSES':[
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ]
 }
+
+SITE_ID = 1
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+AUTHENTICATION_BACKENDS = [
+    # allauth specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+    # Needed to login by username in Django admin, regardless of allauth
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+REST_AUTH = {
+    'REGISTER_SERIALIZER': 'api.serializers.CustomRegisterSerializer',
+    'USE_JWT':True,
+    'JWT_AUTH_COOKIE':'fleetweet-auth',
+}
+
+
