@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import viewsets
 from django.contrib.auth import get_user_model
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from tweets.models import Tweet
 from accounts.models import Follow
@@ -87,6 +89,10 @@ class NewsFeed(generics.ListAPIView):
     serializer_class = TweetSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+    @method_decorator(cache_page(60*15))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
     def get_queryset(self):
         user = self.request.user
         my_followers = [follow.following for follow in user.following.all()]
