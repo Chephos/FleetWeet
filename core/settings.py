@@ -43,7 +43,6 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
-    # 'rest_framework_simplejwt',
     
     'dj_rest_auth',
     'allauth',
@@ -145,7 +144,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAUT_AUTHENTICATION_CLASSES':[
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication'
+        
     ]
 }
 
@@ -167,6 +166,7 @@ REST_AUTH = {
     'REGISTER_SERIALIZER': 'api.serializers.CustomRegisterSerializer',
     'USE_JWT':True,
     'JWT_AUTH_COOKIE':'fleetweet-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'fleetweet-refresh-token'
 }
 
 
