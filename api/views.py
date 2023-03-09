@@ -70,3 +70,26 @@ class FollowDestroyAPIView(APIView):
         self.check_object_permissions(request, follow)
         follow.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ProfileFeed(generics.ListAPIView):
+    serializer_class = TweetSerializer
+
+    def get_queryset(self):
+        """
+        This view should return tweets written by the author only
+        """
+        user = self.request.user
+        return Tweet.objects.filter(author=user)
+
+
+class NewsFeed(generics.ListAPIView):
+    serializer_class = TweetSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        user = self.request.user
+        my_followers = [follow.following for follow in user.following.all()]
+        their_tweets = Tweet.objects.filter(author__in=my_followers).order_by('-created_on')
+        return their_tweets
+    
