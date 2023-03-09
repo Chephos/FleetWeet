@@ -17,13 +17,21 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
+from rest_framework_swagger.views import get_swagger_view
+
+API_DESCRIPTION = 'A web API for basic twitter functionalities'
+schema_view = get_swagger_view(title='FleetWeet API')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('api.urls')),
     path('api/v1/api-auth/', include('rest_framework.urls')),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
-    path('api/v1/registration/', include('dj_rest_auth.registration.urls'))
+    path('api/v1/registration/', include('dj_rest_auth.registration.urls')),
+    path('swagger-docs/', schema_view),
+    path('docs/', include_docs_urls(title='FleetWeet Api', description=API_DESCRIPTION))
 ]
 
 if settings.DEBUG:
