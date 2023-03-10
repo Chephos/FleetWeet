@@ -24,9 +24,9 @@ environ.Env.read_env(BASE_DIR / '.env')
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'tweets.apps.TweetsConfig',
     'accounts.apps.AccountsConfig',
+    'drf_yasg',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -133,7 +135,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -153,7 +159,13 @@ REST_FRAMEWORK = {
         
     ],
     'DEFAULT_SCHEMA_CLASS': 
-        'rest_framework.schemas.coreapi.AutoSchema' 
+        'rest_framework.schemas.coreapi.AutoSchema' ,
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework_swagger.renderers.SwaggerUIRenderer',
+        'rest_framework_swagger.renderers.OpenAPIRenderer',
+    ),
 }
 
 SITE_ID = 1
@@ -195,3 +207,5 @@ SWAGGER_SETTINGS = {
 'LOGIN_URL': 'rest_framework:login',
 'LOGOUT_URL': 'rest_framework:logout',
 }
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
