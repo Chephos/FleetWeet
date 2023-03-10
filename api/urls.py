@@ -6,8 +6,8 @@ from .views import TweetList, TweetDetail, FollowCreateAPIView,ProfileFeed,NewsF
 # router.register(r'follow', UserFollowingViewSet)
 
 urlpatterns = [
-    path('',TweetList.as_view()),
-    path('<int:pk>/', TweetDetail.as_view()),
+    path('',TweetList.as_view(), name='tweet_list'),
+    path('<int:pk>/', TweetDetail.as_view(), name='tweet_detail'),
     path('follow/', FollowCreateAPIView.as_view(), name='follow'),
     path('unfollow/<int:pk>/', FollowDestroyAPIView.as_view(), name='unfollow'),
     path('profile-feed',ProfileFeed.as_view(), name='profile_feed'),

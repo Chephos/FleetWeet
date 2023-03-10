@@ -13,6 +13,7 @@ from .serializers import TweetSerializer, FollowSerializer
 from .permissions import IsAuthorOrReadOnly
 
 userClass = get_user_model()
+
 class TweetList(generics.ListCreateAPIView):
     queryset = Tweet.objects.all()
     serializer_class = TweetSerializer

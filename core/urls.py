@@ -29,7 +29,7 @@ urlpatterns = [
     path('api/v1/', include('api.urls')),
     path('api/v1/api-auth/', include('rest_framework.urls')),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
-    path('api/v1/registration/', include('dj_rest_auth.registration.urls')),
+    path('api/v1/registration/', include('dj_rest_auth.registration.urls'), name='register'),
     path('swagger-docs/', schema_view),
     path('docs/', include_docs_urls(title='FleetWeet Api', description=API_DESCRIPTION))
 ]

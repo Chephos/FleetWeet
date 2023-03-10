@@ -11,3 +11,5 @@ class Tweet(models.Model):
     author = models.ForeignKey(CustomUser, related_name='tweets', on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.text[:15]}...'
