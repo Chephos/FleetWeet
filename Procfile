@@ -1,1 +1,1 @@
-web: python manage.py migrate && python manage.py collectstatic && gunicorn core.wsgi --log-fie -
+web: python manage.py migrate && gunicorn core.wsgi --log-fie -
