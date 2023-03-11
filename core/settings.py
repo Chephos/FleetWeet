@@ -198,7 +198,7 @@ REST_AUTH = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
+        "LOCATION": "redis://default:ZYiXRp5tGoGjbg6M4xa3@containers-us-west-39.railway.app:5683",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
